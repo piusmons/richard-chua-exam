@@ -13,12 +13,17 @@ $channel_Data = '';
 $globalPlaylistId = '';
 
 
-function fetchChannel(){
+function fetchChannel($conn = null){
   global $channel_Data;
   global $url;
   global $globalPlaylistId;
   global $playlist_url;
   $channel_Data = json_decode(file_get_contents($url));
+
+  if ($conn === null) {
+    require_once 'database.php';
+    $conn = $GLOBALS['conn'];
+}
 
   require_once 'database.php';
   
@@ -67,7 +72,7 @@ function fetchPlaylistItems($playlist_id, $conn,$count = 0)
       
 
       if ($conn->query($sql) === TRUE) {
-        echo "Video data inserted successfully.<br>";
+        
         $count++;
         } else {
         echo "Error inserting channel data: " . $conn->error . "<br>";
@@ -86,16 +91,13 @@ function fetchPlaylistItems($playlist_id, $conn,$count = 0)
       if ($count >= 100) {
         echo "total count reached 100. stopping. <br>";
       }
-      $conn->close();
+      
     }
 
     
     
 }
 
-
-
-fetchChannel()
 
 
 ?>
