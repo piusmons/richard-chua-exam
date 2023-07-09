@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/vue@2.6.14"></script>
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <div class="top-con" v-for="channel in channels" :key="channel.id" class="channel-card">
+      <div class="top-con1">
+        <h1>{{ channel.name }}</h1>
+        <img :src="channel.profile_Picture" class="profile-picture" alt="Profile Picture">
+      </div>
+      <div class="top-con2">
+        <p class="channel-desc">{{ channel.description }}</p>
+      </div>
+      
+      
+    </div>
+    <div class="video-card-con">
+
+    <div v-for="video in videos" :key="video.id" >
+      <div class="card">
+        <div class="cardPicCont">
+          <a :href="'https://www.youtube.com/watch?v=' + video.videoLink" class="linkThumbnail">
+            <img :src="video.thumbnail"  alt="Video Thumbnail" class="thumbnail">
+          </a>
+        </div>
+        <h3><a :href="'https://www.youtube.com/watch?v=' + video.videoLink">{{ video.title }}</a></h3>
+        <p class="videoDesc">{{ video.description }}</p>
+      </div>
+    </div>
+    </div>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        channels: [],
+        videos: []
+      },
+      mounted() {
+        this.fetchData(); 
+      },
+      methods: {
+        fetchData() {
+          fetch('http://localhost/codalify/codalifytest/youtube_channel_json.php')
+            .then(response => response.json())
+            .then(data => {
+              this.channels = data.channels;
+              this.videos = data.videos
+              console.log(this.channels);
+            })
+            .catch(error => {
+              console.error(error);
+            });
+        }
+      }
+    });
+  </script>
+
+  
+  
+  
+  
+  
+  
+</body>
+</html>
