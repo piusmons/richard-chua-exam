@@ -16,7 +16,7 @@ html {
 .top-con {
   padding: 5px;
   display: flex;
-  height: 20vh;
+  height: 25vh;
   flex-direction: column;
   background: #4b6cb7;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #182848, #4b6cb7);  /* Chrome 10-25, Safari 5.1-6 */
@@ -46,7 +46,7 @@ html {
 
 .channel-desc{
   color:hsl(0, 0%, 92%);
-  line-height: 1.5;
+  
 }
 
 .video-card-con {
